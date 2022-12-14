@@ -1,10 +1,8 @@
 import {
   createSession,
-  createViewport,
-  IParameterApi,
-  ISessionApi,
-  PARAMETER_TYPE
+  createViewport
 } from "@shapediver/viewer";
+import { createExportMenu } from "./exports";
 import { createParameterMenu } from "./parameters";
 
 // we put all of our code here in an IIFE to allow the "await" statement of promises
@@ -16,36 +14,32 @@ import { createParameterMenu } from "./parameters";
 
   // we create a session with the ticket and modelViewUrl of a model on the ShapeDiver platform
   const session = await createSession({
-    ticket: "49c24476e7ab6d9a883d9a92170085a725c7c411778d4fe4776261d6a64dc90ba44ae5178f6254936ce3fdd6edfcab58cf8b2bd55ed83919d7113864d81654ca4c82d5656f835d4d9df978b8c66d45eb73dca020079863fd74f0eee41d26bcd5d6094cf90bc235-7e055d8491f882af523591404f2c8ed7",
-    modelViewUrl: "https://sdr7euc1.eu-central-1.shapediver.com"
+    ticket: "028961a79bb79b2e6b665e8ded16cabc389923dcaced689663e7d43d20ac4d5a1d09306fda2fb03acbf3bdee4dcbdb1391f8ee1c47c53aca8a3c632283be5db9b679f76e3caad6f35494c51996f90d9a4d13cdbebd9fa33e71d2e131879ca2c60f0982cbcaeaad-055f5df4510e5975418008e61cc89024",
+    modelViewUrl: "https://sdeuc1.eu-central-1.shapediver.com"
   })
 
   createParameterMenu(session)
+  createExportMenu(session)
 
-  // const lengthParameter = session.getParameterByName('Length')[0];
-  // lengthParameter.value = 4;
-  // await session.customize();
+  // const imageExport = session.getExportByName('Image Export')[0];
+  // const resultImageExport = await imageExport.request();
+  // window.open(resultImageExport.content[0].href);
 
-  // await new Promise(resolve => setTimeout(resolve, 2000));
+  // const emailExport = session.getExportByName('Image Email Export')[0];
+  // const emailParameter = session.getParameterByName('Email')[0];
+  // const emailParameterId = emailParameter.id;
 
-  // lengthParameter.resetToDefaultValue();
-  // await session.customize();
+  // const emailExportParameters = {};
+  // emailExportParameters[emailParameter.id] = "";
+  // const resultEmailExport = await emailExport.request(emailExportParameters);
+  // console.log(resultEmailExport);
 
-  // await new Promise(resolve => setTimeout(resolve, 2000));
-
-  // lengthParameter.value = 6;
-  // await session.customize();
-
-  // lengthParameter.value = 3;
-  // lengthParameter.resetToSessionValue();
-  // console.log("Reset to session value: ", lengthParameter.value);
-
-  // try {
-  //   lengthParameter.isValid("Clearly not a number");
-  // } catch (e) {
-  //   console.log(e)
-  // }
-
-  // console.log("Stringified value: ", lengthParameter.stringify());
-
+  // const delayExport = session.getExportByName('Delay Export')[0];
+  // const delayParameter = session.getParameterByName('Delay [sec]')[0];
+  // const emailExportParameters2 = {};
+  // emailExportParameters2[delayParameter.id] = "135";
+  // const resultDelayExport = await delayExport.request(emailExportParameters2);
+  // console.log(resultDelayExport.msg);
+  // const resultDelayExport2 = await delayExport.request();
+  // window.open(resultDelayExport2.content[0].href);
 })();

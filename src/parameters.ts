@@ -143,7 +143,7 @@ const createStringListParameterElement = (session: ISessionApi, parameterObject:
 
 export const createParameterMenu = (session: ISessionApi) => {
 
-    const menuDiv = document.getElementById('menu') as HTMLDivElement;
+    const menuDiv = document.getElementById('parameterMenu') as HTMLDivElement;
 
     // order the parameters via their order property
     const orderedParameters = Object.values(session.parameters).sort((a: IParameterApi<any>, b: IParameterApi<any>) => (a.order === undefined ? Infinity : a.order) - (b.order === undefined ? Infinity : b.order))
