@@ -1,6 +1,10 @@
 import {
   createSession,
-  createViewport
+  createViewport,
+  GeometryData,
+  IMaterialContentDataV3,
+  ITreeNode,
+  MaterialStandardData
 } from "@shapediver/viewer";
 import { createExportMenu } from "./exports";
 import { createParameterMenu } from "./parameters";
@@ -14,32 +18,80 @@ import { createParameterMenu } from "./parameters";
 
   // we create a session with the ticket and modelViewUrl of a model on the ShapeDiver platform
   const session = await createSession({
-    ticket: "028961a79bb79b2e6b665e8ded16cabc389923dcaced689663e7d43d20ac4d5a1d09306fda2fb03acbf3bdee4dcbdb1391f8ee1c47c53aca8a3c632283be5db9b679f76e3caad6f35494c51996f90d9a4d13cdbebd9fa33e71d2e131879ca2c60f0982cbcaeaad-055f5df4510e5975418008e61cc89024",
-    modelViewUrl: "https://sdeuc1.eu-central-1.shapediver.com"
+    ticket: "4c97fdb952da3599f01bcbb80b99846c76032ab06cd911aed28ebf3210f34537c618b0bdc0e3d2b6b1323e60e4e3e5d62bf30588494982051b635cb461b1ad6a0f95aff695a74194370c170ba12fe6436300e5f84d982ca38c2875c6c2d15bec92fa8f1986d384-5be4b97ba9d6a4f763e9b69418831383",
+    modelViewUrl: "https://sdr7euc1.eu-central-1.shapediver.com"
   })
 
-  createParameterMenu(session)
-  createExportMenu(session)
+  createParameterMenu(session);
+  createExportMenu(session);
 
-  // const imageExport = session.getExportByName('Image Export')[0];
-  // const resultImageExport = await imageExport.request();
-  // window.open(resultImageExport.content[0].href);
+  // // gltf 2.0
+  // const shelfOutput = session.getOutputByName("glTF 2.0 Display (Shelf)")[0];
+  // console.log(shelfOutput)
 
-  // const emailExport = session.getExportByName('Image Email Export')[0];
-  // const emailParameter = session.getParameterByName('Email')[0];
-  // const emailParameterId = emailParameter.id;
+  // // gltf 1.0 + material 1
+  // const shelfOutputs = session.getOutputByName("ShapeDiver Display (Shelf)");
+  // const shelfMaterialOutput = shelfOutputs.find(o => o.format.includes("material"));
+  // const shelfGeometryOutput = shelfOutputs.find(o => !o.format.includes("material"));
+  // console.log(shelfMaterialOutput, shelfGeometryOutput);
 
-  // const emailExportParameters = {};
-  // emailExportParameters[emailParameter.id] = "";
-  // const resultEmailExport = await emailExport.request(emailExportParameters);
-  // console.log(resultEmailExport);
+  // // gltf 1.0 + material 2
+  // const imagePlaneOutput = session.getOutputByName("ShapeDiver Display (Image Plane)")[0];
+  // console.log(imagePlaneOutput);
 
-  // const delayExport = session.getExportByName('Delay Export')[0];
-  // const delayParameter = session.getParameterByName('Delay [sec]')[0];
-  // const emailExportParameters2 = {};
-  // emailExportParameters2[delayParameter.id] = "135";
-  // const resultDelayExport = await delayExport.request(emailExportParameters2);
-  // console.log(resultDelayExport.msg);
-  // const resultDelayExport2 = await delayExport.request();
-  // window.open(resultDelayExport2.content[0].href);
+  // // data
+  // const delayOutput = session.getOutputByName("Delay Output")[0];
+  // console.log(delayOutput)
+
+  // // data 2
+  // const imagePlaneBoxOutput = session.getOutputByName("Image Plane Box")[0];
+  // console.log(imagePlaneBoxOutput.content)
+
+  // // tag2d
+  // const tag2dOutput = session.getOutputByName("Text Tag")[0];
+  // console.log(tag2dOutput);
+
+  // // tag3d
+  // const tag3dOutput = session.getOutputByName("Text Tag 3D")[0];
+  // console.log(tag3dOutput);
+
+  // // external
+  // const externalDisplayOutput = session.getOutputByName("External Display");
+  // console.log(externalDisplayOutput);
+
+  // // visible
+  // const shelfOutput = session.getOutputByName("glTF 2.0 Display (Shelf)")[0];
+  // shelfOutput.node.visible = false;
+  // const shelfOutputOld = session.getOutputByName("ShapeDiver Display (Shelf)").find(o => !o.format.includes("material"));
+  // shelfOutputOld.node.visible = false;
+
+  // // freeze
+  // const imagePlaneOutput = session.getOutputByName("ShapeDiver Display (Image Plane)")[0];
+  // imagePlaneOutput.freeze = true;
+
+  // // updateCallback
+  // const imagePlaneBoxOutput = session.getOutputByName("Image Plane Box")[0];
+  // console.log(imagePlaneBoxOutput.content)
+  // imagePlaneBoxOutput.updateCallback = () => {
+  //   console.log(imagePlaneBoxOutput.content)
+  // }
+
+  // // material update
+  // const shelfOutput = session.getOutputByName("glTF 2.0 Display (Shelf)")[0];
+  // const shelfOutputOld = session.getOutputByName("ShapeDiver Display (Shelf)").find(o => !o.format.includes("material"));
+
+  // const updateCallback = (newNode: ITreeNode) => {
+  //   const newMaterialData = new MaterialStandardData({ color: "#ff0000" });
+  //   newNode.traverseData(d => {
+  //     if(d instanceof GeometryData)
+  //       d.primitive.material = newMaterialData;
+  //   })
+  //   newNode.updateVersion();
+  // };
+
+  // updateCallback(shelfOutput.node)
+  // shelfOutput.updateCallback = updateCallback;
+
+  // updateCallback(shelfOutputOld.node)
+  // shelfOutputOld.updateCallback = updateCallback;
 })();
