@@ -1,4 +1,5 @@
 import { IParameterApi, ISessionApi, PARAMETER_TYPE } from "@shapediver/viewer";
+import { extendMimeTypes, guessMimeTypeFromFilename, mapMimeTypeToFileEndings } from "@shapediver/viewer.utils.mime-type";
 
 const createParameterDiv = (parameterObject: IParameterApi<any>, parentDiv: HTMLDivElement) => {
     // create a div to store the parameter data
@@ -111,11 +112,28 @@ const createFileParameterElement = (session: ISessionApi, parameterObject: IPara
     const inputElement = document.createElement('input') as HTMLInputElement;
     parameterDiv.appendChild(inputElement)
     inputElement.type = 'file';
-    inputElement.accept = parameterObject.format.join(',');
+
+    // get all allowed file endings
+    const fileEndings = mapMimeTypeToFileEndings(extendMimeTypes(parameterObject.format!));
+
+    // remove duplicates
+    let uniqueFileEndings: string[] = [];
+    fileEndings.forEach((element) => {
+        if (!uniqueFileEndings.includes(element)) 
+            uniqueFileEndings.push(element);
+    });
+    inputElement.accept = uniqueFileEndings.join(',');
 
     inputElement.onchange = async () => {
         if (!inputElement.files || !inputElement.files[0]) return;
-        parameterObject.value = inputElement.files[0];
+        
+        // some uploaded files do not have a type specified
+        const file = inputElement.files[0];
+        let fileWithMimeType = file;
+        if (!fileWithMimeType.type)
+            fileWithMimeType = new File([file], file.name, { type: guessMimeTypeFromFilename(file.name)[0]});
+
+        parameterObject.value = fileWithMimeType;
         await session.customize();
     }
 }
