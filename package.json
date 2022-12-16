@@ -35,6 +35,7 @@
   "dependencies": {
     "@shapediver/viewer": "^2.6.5",
     "@shapediver/viewer.features.interaction": "^2.6.5",
+    "@shapediver/viewer.utils.mime-type": "1.0.0",
     "dotenv": "^16.0.3"
   }
 }
