@@ -20,7 +20,7 @@
   "homepage": "https://github.com/shapediver/ViewerProjectTemplate#readme",
   "devDependencies": {
     "@types/pako": "^1.0.3",
-    "aws-sdk": "^2.1121.0",
+    "aws-sdk": "^2.1354.0",
     "html-webpack-plugin": "^5.5.0",
     "pako": "^2.0.4",
     "recursive-readdir-sync": "^1.0.6",
