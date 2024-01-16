@@ -4,9 +4,9 @@ This is the repository that accompanies the ShapeDiver YouTube Viewer tutorial s
 
 ## Initial Setup
 
-To start off, you need to have [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) installed. This version of `npm` that was used when creating this project is version `8.10.0`. Other versions of `npm` should work as well, but if you are experiencing errors, make sure to try it with this version first.
+Please update the viewer version of the package.json to the latest viewer version available, you can see that viewer version on our [help desk](https://help.shapediver.com/doc/viewer). Then, if you haven't installed `npm` please do so. You can find information about that [here](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
 
-When you have pulled the repository, first call
+After doing that, first call
 
 ```npm i```
 
