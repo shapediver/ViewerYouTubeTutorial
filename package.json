@@ -33,8 +33,7 @@
     "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
-    "@shapediver/viewer": "^2.6.4",
-    "@shapediver/viewer.features.interaction": "^2.6.4",
+    "@shapediver/viewer": "2.12.1",
     "@shapediver/viewer.utils.mime-type": "1.0.0",
     "dotenv": "^16.0.3"
   }
